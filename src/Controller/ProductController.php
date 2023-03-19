@@ -30,7 +30,7 @@ class ProductController extends AbstractController
             $products = $response['products'];
         }
 
-        return $this->render('product/index.html.twig', [
+        return $this->render('products/index.html.twig', [
             'products' => $products ?? [],
         ]);
     }
