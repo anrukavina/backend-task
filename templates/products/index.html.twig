@@ -17,9 +17,27 @@
 		}
 	</style>
 
-	<div class="example-wrapper">
-		{% for product in products %}
-			<li>{{ product.title }}</li>
-		{% endfor %}
-	</div>
+	<section class="pt-md-5">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="card mx-auto d-flex">
+						{% for product in products %}
+							<div class="d-flex justify-content-center">
+								<div class="card m-3" style="width: 25rem;">
+									<img class="card-img-top" src="{{ product.thumbnail }}" alt="Card image cap">
+									<div class="card-body">
+										<h5 class="card-title">{{ product.title }}</h5>
+										<p class="card-text">
+											{{ product.description }}</p>
+										<a href="#" class="btn btn-primary">Go somewhere</a>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 {% endblock %}
