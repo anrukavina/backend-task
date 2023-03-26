@@ -4,40 +4,67 @@
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
-
 	<section class="pt-md-5">
 		<div class="container">
 			<div class="row">
-				<div class="col">
-					<div class="card mx-auto d-flex">
-						{% for product in products %}
+				<div
+					class="col">
+					{# <div class="card mx-auto d-flex"> #}
+					{% if data is not empty %}
+						{% for product in data %}
 							<div class="d-flex justify-content-center">
-								<div class="card m-3" style="width: 25rem;">
+								<div class="card m-3" style="width: 28rem;">
 									<img class="card-img-top" src="{{ product.thumbnail }}" alt="Card image cap">
 									<div class="card-body">
 										<h5 class="card-title">{{ product.title }}</h5>
 										<p class="card-text">
 											{{ product.description }}</p>
-										<a href="#" class="btn btn-primary">Go somewhere</a>
+										<a href="/products/{{ product.id }}" class="btn btn-primary">View product details</a>
 									</div>
 								</div>
 							</div>
 						{% endfor %}
-					</div>
+						{% if pagination.getTotalPages() > 1 %}
+							<nav>
+								<ul class="pagination justify-content-center">
+									{% if pagination.getCurrentPage() != 1 %}
+										<li class="page-item">
+											<a class="page-link" href="?page=1">&laquo;</a>
+										</li>
+										<li class="page-item">
+											<a class="page-link" href="?page={{ pagination.getCurrentPage() - 1 }}">&lt;</a>
+										</li>
+									{% endif %}
+
+									{% for page in 1..pagination.getTotalPages() %}
+										{% if page == pagination.getCurrentPage() %}
+											<li class="page-item active">
+												<a class="page-link" href="#">{{ page }}</a>
+											</li>
+										{% else %}
+											<li>
+												<a class="page-link" href="?page={{ page }}">{{ page }}</a>
+											</li>
+										{% endif %}
+									{% endfor %}
+
+									{% if pagination.getCurrentPage() != pagination.getTotalPages() %}
+										<li class="page-item">
+											<a class="page-link" href="?page={{ pagination.getCurrentPage() + 1 }}">&gt;</a>
+										</li>
+										<li class="page-item">
+											<a class="page-link" href="?page={{ pagination.getTotalPages() }}">&raquo;</a>
+										</li>
+									{% endif %}
+								</ul>
+							</nav>
+						{% endif %}
+					{% endif %}
+					{# </div> #}
 				</div>
 			</div>
 		</div>
+
+
 	</section>
 {% endblock %}
